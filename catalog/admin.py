@@ -9,19 +9,22 @@ class AuthorAdmin(admin.ModelAdmin):
 
     fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
 
+
+class BooksInstanceInline(admin.TabularInline):
+    """Allows adding of Book Istances on the same page when creating or editing a Book"""
+    model = BookInstance
+    extra = 0
+
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'display_genre')
 
-
-class BooksInstanceInline(admin.TabularInline):
-    model = BookInstance
+    # add book instances on the same page as book
+    inlines = [BooksInstanceInline]
 
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
     list_filter = ('status', 'due_back')
-
-    inlines = [BooksInstanceInline]
 
     fieldsets = (
         (None, {
