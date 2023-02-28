@@ -3,17 +3,20 @@ import uuid
 from django.db import models
 from django.urls import reverse
 
+
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text="Enter a book genre (e.g. Science Fiction)")
 
     def __str__(self):
         return self.name
 
+
 class Language(models.Model):
     name = models.CharField(max_length=200, help_text="Enter the book's natural language (e.g English, French, Japanese etc.)")
 
     def __str__(self):
         return self.name
+
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -29,6 +32,13 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
     
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in Admin Interface"""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+    
+    # display_genre friendly column name in the Admin Interface otherwise 'Display Genre' is used as column name
+    display_genre.short_description = 'Genre'
+
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e that can be borrowed from the library)"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular book across whole library")
@@ -50,7 +60,8 @@ class BookInstance(models.Model):
 
     def __str__(self):
         return f'{self.id} ({self.book.title})'
-    
+
+
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
