@@ -22,6 +22,7 @@ def index(request):
 
 class BookListView(generic.ListView):
     models = Book
+    paginate_by = 10
 
     context_object_name = 'book_list'
     template_name = 'catalog/book_list.html'
@@ -36,3 +37,7 @@ class BookListView(generic.ListView):
         context['custom_variable'] = 'This is to test the get_context_data method'
 
         return context
+    
+
+class BookDetailView(generic.DetailView):
+    model = Book
