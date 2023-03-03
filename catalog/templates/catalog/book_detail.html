@@ -26,6 +26,8 @@
             
             <p><strong>Imprint:</strong> {{ copy.imprint }}</p>
             <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
+        {% empty %} 
+            <p style="margin-left: 10px; font-style: italic">Book has no copies out yet.</p>   
         {% endfor %}
     </div>
 

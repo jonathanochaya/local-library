@@ -13,7 +13,8 @@
             
             <a href="{{ book.get_absolute_url }}">{{ book }}</a> ({{ book.bookinstance_set.count }}) <br/>
             <p>{{ book.get_summary_text }}</p>
-            
+        {% empty %} 
+            <p>Author has no books in the library.</p>   
         {% endfor %}
     </div>
 
