@@ -36,6 +36,9 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
     
+    def get_summary_text(self):
+        return self.summary[:300]
+    
     def display_genre(self):
         """Create a string for the Genre. This is required to display genre in Admin Interface"""
         return ', '.join(genre.name for genre in self.genre.all()[:3])
@@ -76,7 +79,7 @@ class Author(models.Model):
         ordering = ['last_name', 'first_name']
 
     def get_absolute_url(self):
-        reverse('author-detail', args=[str(self.id)])
+        return reverse('author-detail', args=[str(self.id)])
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name}'
