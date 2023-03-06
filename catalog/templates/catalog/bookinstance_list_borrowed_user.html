@@ -8,7 +8,7 @@
 
         {% for bookcopy in bookinstance_list %}
             <li class="{% if bookcopy.is_overdue %}text-danger{% endif %}">
-                <a href="{% url 'book-detail' bookcopy.book.pk %}">{{ bookcopy.book.title }}</a> ({{ bookcopy.due_back }})
+                <a href="{{ bookcopy.book.get_absolute_url }}">{{ bookcopy.book.title }}</a> ({{ bookcopy.due_back }})
             </li>
         {% endfor %}
 
