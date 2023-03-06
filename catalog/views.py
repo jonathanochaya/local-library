@@ -38,7 +38,18 @@ class BookListView(generic.ListView):
         context['custom_variable'] = 'This is to test the get_context_data method'
 
         return context
-    
+
+
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+    model = BookInstance
+    template_name = 'catalog/bookinstance_list_borrowed_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return (BookInstance.objects.filter(borrower=self.request.user)
+                .filter(status__exact='o')
+                .order_by('due_back'))
+
 
 class BookDetailView(generic.DetailView):
     model = Book

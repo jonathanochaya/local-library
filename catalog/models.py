@@ -1,9 +1,9 @@
 import uuid
+from datetime import date
 
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.utils import timezone
 
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text="Enter a book genre (e.g. Science Fiction)")
@@ -72,7 +72,7 @@ class BookInstance(models.Model):
 
     @property
     def is_overdue(self):
-        return bool(self.due_back and timezone.now() > self.due_back)
+        return bool(self.due_back and date.today() > self.due_back)
 
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
