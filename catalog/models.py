@@ -5,6 +5,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text="Enter a book genre (e.g. Science Fiction)")
 
@@ -27,7 +28,6 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
 
-
     class Meta:
         ordering = ['title']
 
@@ -46,6 +46,7 @@ class Book(models.Model):
     
     # display_genre friendly column name in the Admin Interface otherwise 'Display Genre' is used as column name
     display_genre.short_description = 'Genre'
+
 
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e that can be borrowed from the library)"""
@@ -74,6 +75,7 @@ class BookInstance(models.Model):
     @property
     def is_overdue(self):
         return bool(self.due_back and date.today() > self.due_back)
+
 
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
