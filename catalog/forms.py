@@ -16,4 +16,4 @@ class RenewBookForm(forms.Form):
             raise ValidationError(_('Invalid date - renewal in past'))
         
         if data > datetime.date.today() + datetime.timedelta(weeks=4):
-            raise ValidationError(_('nvalid date - renewal more than 4 weeks ahead'))
+            raise ValidationError(_('Invalid date - renewal more than 4 weeks ahead'))
